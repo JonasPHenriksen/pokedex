@@ -1,0 +1,104 @@
+.pokemon-detail {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.pokemon-name {
+    color: #333;
+}
+
+.pokemon-image {
+    min-width: 100px;
+    min-height: 100px;
+    margin: 20px auto;
+    display: block;
+}
+
+/* Use flexbox to display abilities, types, and stats in a horizontal row */
+.pokemon-abilities,
+.pokemon-types {
+    display: flex;
+    justify-content: center;
+    list-style: none; /* Remove default list styles */
+    padding: 0;
+    margin: 10px 0; /* Add margin to separate each section */
+}
+
+
+.pokemon-abilities li,
+.pokemon-types li,
+.pokemon-stats li {
+    margin: 5px 5px; /* Add margin between each item */
+    padding: 5px 10px; /* Add padding to make it visually appealing */
+    background-color: #f0f0f0; /* Add background color */
+    border-radius: 5px; /* Add rounded corners */
+    list-style: none; /* Remove default list styles */
+}
+
+.pokemon-stats {
+    margin-right: 40px;
+}
+
+.back-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #45a049;
+}
+
+.pokemon-detail {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.pokemon-detail .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pokemon-detail .pokemon-image-container {
+    min-width: 500px;
+    min-height: 200px;
+    max-width: 500px;
+    max-height: 200px;
+}
+
+.pokemon-detail .pokemon-image {
+    width: 100%;
+    height: auto;
+}
+
+.pokemon-detail .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.pokemon-detail .pokemon-info {
+    width: 60%;
+}
+
+.pokemon-detail .back-button {
+    margin-top: 20px;
+}
+
