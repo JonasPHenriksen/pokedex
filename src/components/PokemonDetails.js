@@ -21,18 +21,18 @@ function PokemonDetail() {
 
     const handlePrev = () => {
         const prevPokemonId = pokemon.id - 1;
-        window.location.href = `/pokemon/${prevPokemonId}`;
+        window.location.href = `/pokedex/pokemon/${prevPokemonId}`;
     };
 
 
     const handleNext = () => {
         const nextPokemonId = pokemon.id + 1;
-        window.location.href = `/pokemon/${nextPokemonId}`;
+        window.location.href = `/pokedex/pokemon/${nextPokemonId}`;
     };
 
     const handleBack = () => {
         const roundedId = roundDownToNearestTen(pokemon.id)
-        window.location.href = `/?offset=${roundedId}`;
+        window.location.href = `/pokedex/?offset=${roundedId}`;
     };
 
     function roundDownToNearestTen(number) {
