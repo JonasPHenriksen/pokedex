@@ -6,7 +6,7 @@ import About from './components/About';
 import PokemonDetail from "./components/PokemonDetails";
 
 function App() {
-    // Set basename manually based on whether it's deployed on GitHub Pages or not
+    // Basename to work with github pages
     const basename = window.location.pathname.startsWith('/pokedex') ? '/pokedex' : '/';
 
     return (
