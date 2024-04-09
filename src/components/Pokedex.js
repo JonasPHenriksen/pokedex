@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 import './Pokedex.css'; // Import CSS file for styling
+import {roundDownToNearestTen} from "./PokemonDetails";
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -12,55 +13,37 @@ function capitalizeFirstLetter(string) {
 }
 
 function Pokedex() {
-    const [pokemonList, setPokemonList] = useState([]);
-    const [offset, setOffset] = useState(0);
     const query = useQuery();
+    const offsetFromUrl = parseInt(query.get("offset"))
+    const [pokemonList, setPokemonList] = useState([]);
+    const [offset, setOffset] = useState(
+        isNaN(offsetFromUrl) ? 0 : offsetFromUrl
+    );
+    const [count, setCount] = useState(0);
     const limit = 10;
-
-    useEffect(() => {
-        const offsetFromUrl = parseInt(query.get('offset'));
-        if (!isNaN(offsetFromUrl)) {
-            setOffset(offsetFromUrl);
-        }
-    }, [query]);
 
     useEffect(() => {
         async function fetchPokemon() {
             try {
                 const response = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
                 setPokemonList(response.data.results);
+                setCount(response.data.count);
             } catch (error) {
                 console.error('Error fetching Pokemon:', error);
             }
         }
         fetchPokemon();
-    }, [offset, limit]);
+    }, [offset]);
 
-    useEffect(() => {
-        const handlePopState = () => {
-            const newOffset = parseInt(new URLSearchParams(window.location.search).get('offset')) || 0;
-            setOffset(newOffset);
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
-    }, []);
 
     const handleNext = () => {
         const newOffset = offset + limit;
         setOffset(newOffset);
-        // Update URL with new offset
-        window.history.pushState(null, '', `/pokedex/?offset=${newOffset}`);
     };
 
     const handlePrev = () => {
         const newOffset = Math.max(0, offset - limit);
         setOffset(newOffset);
-        // Update URL with new offset
-        window.history.pushState(null, '', `/pokedex/?offset=${newOffset}`);
     };
 
 
@@ -81,7 +64,7 @@ function Pokedex() {
             </ul>
             <div className="pagination">
                 <button onClick={handlePrev} disabled={offset === 0} className="pagination-button">Previous</button>
-                <button onClick={handleNext} disabled={offset === 1020} className="pagination-button">Next</button>
+                <button onClick={handleNext} disabled={offset === roundDownToNearestTen(count)} className="pagination-button">Next</button>
             </div>
             <div className="about-link">
                 <Link to="/about">About This Page</Link>
