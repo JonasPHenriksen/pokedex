@@ -57,10 +57,12 @@ function PokemonDetail() {
     return (
         <div className="pokemon-detail">
             <div className="header">
-                <h2 className="pokemon-name">{capitalizeFirstLetter(pokemon.name)}</h2>
+
             </div>
             <div className="content">
+
                 <div className="pokemon-image-container">
+                    <h2 className="pokemon-name">{capitalizeFirstLetter(pokemon.name)}</h2>
                     <img className="pokemon-image" src={pokemon.sprites.front_default} alt={pokemon.name}/>
                     <button className="prev-button" onClick={handlePrev} disabled={pokemon.id === 1}>Previous</button>
                     <button className="back-button" onClick={handleBack}>Back</button>
