@@ -3,8 +3,15 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './PokemonDetails.css';
 
+export function roundDownToNearestTen(number) {
+    return Math.floor(number / 10) * 10;
+}
+
 function PokemonDetail() {
-    const { id } = useParams();
+    let { id: urlId } = useParams();
+    urlId = parseInt(urlId)
+    const formattedId = isNaN(urlId) ? 1 : urlId
+    const [id, setId] = useState(formattedId)
     const [pokemon, setPokemon] = useState(null);
 
     useEffect(() => {
@@ -21,23 +28,22 @@ function PokemonDetail() {
 
     const handlePrev = () => {
         const prevPokemonId = pokemon.id - 1;
-        window.location.href = `/pokedex/pokemon/${prevPokemonId}`;
+        setId(prevPokemonId)
+        // window.location.href = `/pokemon/${prevPokemonId}`;
     };
-
 
     const handleNext = () => {
         const nextPokemonId = pokemon.id + 1;
-        window.location.href = `/pokedex/pokemon/${nextPokemonId}`;
+        setId(nextPokemonId)
+        // window.location.href = `/pokemon/${nextPokemonId}`;
     };
 
     const handleBack = () => {
-        const roundedId = roundDownToNearestTen(pokemon.id)
+        const roundedId = roundDownToNearestTen(id)
         window.location.href = `/pokedex/?offset=${roundedId}`;
     };
 
-    function roundDownToNearestTen(number) {
-        return Math.floor(number / 10) * 10;
-    }
+
 
 
     function capitalizeFirstLetter(string) {
