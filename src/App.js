@@ -1,6 +1,6 @@
 // App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import Pokedex from './components/Pokedex';
 import About from './components/About';
 import PokemonDetail from "./components/PokemonDetails";
@@ -10,12 +10,13 @@ function App() {
     const basename = window.location.pathname.startsWith('/pokedex') ? '/pokedex' : '/';
 
     return (
-        <Router basename={basename}>
+        <Router>
             <div>
                 <Routes>
+                    <Route path={"/pokedex"} element={<Pokedex />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/pokemon/:id" element={<PokemonDetail />} />
-                    <Route path="/" element={<Pokedex />} />
+                    <Route path="*" element={<Navigate to={"/pokedex"} />} />
                 </Routes>
             </div>
         </Router>
