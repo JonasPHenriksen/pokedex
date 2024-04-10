@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Pokedex.css'; // Import CSS file for styling
 
 function useQuery() {
@@ -15,6 +15,7 @@ function Pokedex() {
     const [pokemonList, setPokemonList] = useState([]);
     const [offset, setOffset] = useState(0);
     const query = useQuery();
+    const navigate = useNavigate(); // Import useNavigate
     const limit = 10;
 
     useEffect(() => {
@@ -36,31 +37,18 @@ function Pokedex() {
         fetchPokemon();
     }, [offset, limit]);
 
-    useEffect(() => {
-        const handlePopState = () => {
-            const newOffset = parseInt(new URLSearchParams(window.location.search).get('offset')) || 0;
-            setOffset(newOffset);
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
-    }, []);
-
     const handleNext = () => {
         const newOffset = offset + limit;
         setOffset(newOffset);
         // Update URL with new offset
-        window.history.pushState(null, '', `/pokedex/?offset=${newOffset}`);
+        navigate(`/?offset=${newOffset}`);
     };
 
     const handlePrev = () => {
         const newOffset = Math.max(0, offset - limit);
         setOffset(newOffset);
         // Update URL with new offset
-        window.history.pushState(null, '', `/pokedex/?offset=${newOffset}`);
+        navigate(`/?offset=${newOffset}`);
     };
 
 

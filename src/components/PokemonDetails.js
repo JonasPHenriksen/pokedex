@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './PokemonDetails.css';
 
 function PokemonDetail() {
     const { id } = useParams();
     const [pokemon, setPokemon] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchPokemonDetails() {
@@ -21,17 +22,17 @@ function PokemonDetail() {
 
     const handlePrev = () => {
         const prevPokemonId = pokemon.id - 1;
-        window.location.href = `/pokedex/pokemon/${prevPokemonId}`;
+        navigate(`/pokemon/${prevPokemonId}`);
     };
 
     const handleNext = () => {
         const nextPokemonId = pokemon.id + 1;
-        window.location.href = `/pokedex/pokemon/${nextPokemonId}`;
+        navigate(`/pokemon/${nextPokemonId}`);
     };
 
     const handleBack = () => {
         const roundedId = roundDownToNearestTen(pokemon.id)
-        window.location.href = `/pokedex/?offset=${roundedId}`;
+        navigate(`/?offset=${roundedId}`);
     };
 
     function roundDownToNearestTen(number) {
@@ -67,7 +68,7 @@ function PokemonDetail() {
                     <p>Weight: {pokemon.weight}</p>
                     <h3>Abilities:</h3>
                     <ul className="pokemon-abilities">
-                    {pokemon.abilities.map((ability, index) => (
+                        {pokemon.abilities.map((ability, index) => (
                             <li key={index}>{capitalizeFirstLetter(ability.ability.name)}</li>
                         ))}
                     </ul>
