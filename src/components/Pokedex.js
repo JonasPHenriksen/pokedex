@@ -41,14 +41,14 @@ function Pokedex() {
         const newOffset = offset + limit;
         setOffset(newOffset);
         // Update URL with new offset
-        navigate(`/?offset=${newOffset}`);
+        navigate(`/pokedex/?offset=${newOffset}`);
     };
 
     const handlePrev = () => {
         const newOffset = Math.max(0, offset - limit);
         setOffset(newOffset);
         // Update URL with new offset
-        navigate(`/?offset=${newOffset}`);
+        navigate(`/pokedex/?offset=${newOffset}`);
     };
 
 
