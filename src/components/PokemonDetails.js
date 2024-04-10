@@ -32,7 +32,7 @@ function PokemonDetail() {
 
     const handleBack = () => {
         const roundedId = roundDownToNearestTen(pokemon.id)
-        navigate(`/?offset=${roundedId}`);
+        navigate(`/pokedex/?offset=${roundedId}`);
     };
 
     function roundDownToNearestTen(number) {
